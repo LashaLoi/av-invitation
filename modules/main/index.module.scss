@@ -22,8 +22,14 @@
 }
 
 .span {
+    overflow: hidden;
     display: block;
     font-size: 4.5rem;
+}
+
+.heading {
+    font-size: 8rem;
+    margin-bottom: 60px;
 }
 
 @media all and (max-width: 768px) {
@@ -40,5 +46,10 @@
 
     .li .span {
         font-size: 2rem;
+    }
+
+    .heading {
+        font-size: 5rem;
+        margin-bottom: 30px;
     }
 }

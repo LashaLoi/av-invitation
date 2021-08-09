@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 const getTime = () => {
     const countDownDate = new Date(2021, 11, 21).getTime()
@@ -21,11 +21,14 @@ type ResultValue = {
     hours: number
     minutes: number
     seconds: number
+    prevSeconds: number
 }
 
 export function useTimer(): [ResultValue, boolean] {
     const [date, setDate] = useState(getTime)
     const [isExpired, setIsExpired] = useState(false)
+
+    const secondsRef = useRef<number>(date.seconds)
 
     useEffect(() => {
         const intervalId = setInterval(function () {
@@ -38,11 +41,13 @@ export function useTimer(): [ResultValue, boolean] {
                 return
             }
 
+            secondsRef.current = date.seconds
+
             setDate(time)
         }, 1000)
 
         return () => clearInterval(intervalId)
     })
 
-    return [date, isExpired]
+    return [{ ...date, prevSeconds: secondsRef.current }, isExpired]
 }

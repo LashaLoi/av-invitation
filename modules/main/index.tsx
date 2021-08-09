@@ -12,28 +12,46 @@ const commonSpring = {
 export default function Home() {
     const [date] = useTimer()
 
+    const headingStyles = useSpring({
+        ...commonSpring,
+    })
+
     const titleStyles = useSpring({
         ...commonSpring,
+        delay: 100,
     })
     const dateStyles = useSpring({
         ...commonSpring,
         delay: 200,
     })
 
-    const items = Object.entries(date).map(([key, value]) => ({ key, value }))
-
     return (
         <div className={styles.container}>
+            <animated.div style={headingStyles} className={styles.heading}>
+                AV
+            </animated.div>
             <animated.h1 className={styles.h1} style={titleStyles}>
                 Countdown to our wedding:
             </animated.h1>
             <animated.ul className={styles.ul} style={dateStyles}>
-                {items.map(({ key, value }) => (
-                    <li className={styles.li} key={key}>
-                        <span className={styles.span}>{value}</span>
-                        {key}
-                    </li>
-                ))}
+                <li className={styles.li}>
+                    <span className={styles.span}>{date.days}</span>
+                    days
+                </li>
+                <li className={styles.li}>
+                    <span className={styles.span}>{date.hours}</span>
+                    hours
+                </li>
+                <li className={styles.li}>
+                    <span className={styles.span}>{date.minutes}</span>
+                    minutes
+                </li>
+                <li className={styles.li}>
+                    <animated.span className={styles.span}>
+                        {date.seconds}
+                    </animated.span>
+                    seconds
+                </li>
             </animated.ul>
         </div>
     )
