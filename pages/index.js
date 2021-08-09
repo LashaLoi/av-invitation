@@ -1,3 +1,5 @@
-export default function Home({ allPostsData }) {
-    return <div>Hello World</div>
+import Home from '../modules/main'
+
+export default function Index() {
+    return <Home />
 }
