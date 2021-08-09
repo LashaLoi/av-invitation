@@ -1,16 +1,18 @@
+import { useSpring, animated, config } from 'react-spring'
+
 import { useTimer } from '../../hooks/useTimer'
 
 import styles from './index.module.scss'
-import { useSpring, animated, config } from 'react-spring'
 
-const commonSpring = {
-    from: { opacity: 0, color: '#ffefd5', scale: 0.95 },
-    to: { opacity: 1, color: '#666', scale: 1 },
-    config: config.molasses,
-}
+import { colors, commonSpring } from './constants'
 
 export default function Home() {
     const [date] = useTimer()
+
+    const aStyles = useSpring({
+        backgroundColor: colors[Math.floor(date.seconds / 10) * 10],
+        config: config.molasses,
+    })
 
     const headingStyles = useSpring({
         ...commonSpring,
@@ -20,13 +22,14 @@ export default function Home() {
         ...commonSpring,
         delay: 100,
     })
+
     const dateStyles = useSpring({
         ...commonSpring,
         delay: 200,
     })
 
     return (
-        <div className={styles.container}>
+        <animated.div className={styles.container} style={aStyles}>
             <animated.div style={headingStyles} className={styles.heading}>
                 AV
             </animated.div>
@@ -53,6 +56,6 @@ export default function Home() {
                     seconds
                 </li>
             </animated.ul>
-        </div>
+        </animated.div>
     )
 }
