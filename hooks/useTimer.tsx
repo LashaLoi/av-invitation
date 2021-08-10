@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 
 const getTime = () => {
-    const countDownDate = new Date(2021, 11, 21).getTime()
+    const countDownDate = new Date(2021, 10, 21).getTime()
 
     const now = new Date().getTime()
     const distance = countDownDate - now
