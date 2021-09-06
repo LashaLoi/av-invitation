@@ -1,12 +1,12 @@
 import { config } from 'react-spring'
 
 export const colors = {
-    50: '#FDE3C3',
-    40: '#FCD7BF',
-    30: '#F4DEE2',
-    20: '#F6CE66',
-    10: '#8AAB8C',
-    0: '#D1EAEC',
+    50: '#F0E8E3',
+    40: '#EEB18F',
+    30: '#C7B977',
+    20: '#CADFCF',
+    10: '#FACED2',
+    0: '#B9B2CB',
 }
 
 export const commonSpring = {

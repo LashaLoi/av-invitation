@@ -1,41 +1,33 @@
+import { useMemo } from 'react'
 import { useSpring, animated, config } from 'react-spring'
 
-import { useTimer } from '../../hooks/useTimer'
+import Header from '@components/header'
+import { useTimer } from '@lib/hooks/useTimer'
+import { colors, commonSpring } from '@lib/constants'
 
 import styles from './index.module.scss'
 
-import { colors, commonSpring } from './constants'
-
 export default function Home() {
     const [date] = useTimer()
+    const colorNumber = Math.floor(date.seconds / 10) * 10
 
-    const aStyles = useSpring({
-        backgroundColor: colors[Math.floor(date.seconds / 10) * 10],
+    const containerStyles = useSpring({
+        backgroundColor: colors[colorNumber],
         config: config.molasses,
     })
-
-    const headingStyles = useSpring({
-        ...commonSpring,
-    })
-
-    const titleStyles = useSpring({
-        ...commonSpring,
-        delay: 100,
-    })
-
     const dateStyles = useSpring({
         ...commonSpring,
         delay: 200,
     })
 
+    const makeReverse = useMemo(
+        () => (colorNumber / 10) % 2 === 0,
+        [colorNumber]
+    )
+
     return (
-        <animated.div className={styles.container} style={aStyles}>
-            <animated.div style={headingStyles} className={styles.heading}>
-                AV
-            </animated.div>
-            <animated.h1 className={styles.h1} style={titleStyles}>
-                Countdown to our wedding:
-            </animated.h1>
+        <animated.div className={styles.container} style={containerStyles}>
+            <Header makeReverse={makeReverse} />
             <animated.ul className={styles.ul} style={dateStyles}>
                 <li className={styles.li}>
                     <span className={styles.span}>{date.days}</span>

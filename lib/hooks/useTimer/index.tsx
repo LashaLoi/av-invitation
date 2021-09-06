@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 const getTime = () => {
     const countDownDate = new Date(2021, 10, 21).getTime()
-
     const now = new Date().getTime()
+
     const distance = countDownDate - now
+    if (distance < 0) return null
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24))
     const hours = Math.floor(
@@ -21,17 +22,14 @@ type ResultValue = {
     hours: number
     minutes: number
     seconds: number
-    prevSeconds: number
 }
 
-export function useTimer(): [ResultValue, boolean] {
+export const useTimer = (): [ResultValue, boolean] => {
     const [date, setDate] = useState(getTime)
     const [isExpired, setIsExpired] = useState(false)
 
-    const secondsRef = useRef<number>(date.seconds)
-
     useEffect(() => {
-        const intervalId = setInterval(function () {
+        const intervalId = setInterval(() => {
             const time = getTime()
 
             if (!time) {
@@ -41,13 +39,11 @@ export function useTimer(): [ResultValue, boolean] {
                 return
             }
 
-            secondsRef.current = date.seconds
-
             setDate(time)
         }, 1000)
 
         return () => clearInterval(intervalId)
     })
 
-    return [{ ...date, prevSeconds: secondsRef.current }, isExpired]
+    return [date, isExpired]
 }
