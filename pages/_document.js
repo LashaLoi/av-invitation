@@ -25,6 +25,11 @@ export default class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap"
                         rel="stylesheet"
                     />
+                    <link
+                        rel="apple-touch-icon"
+                        sizes="120x120"
+                        href="/public/AV-logo.jpg"
+                    />
                     <title>AV invitation</title>
                 </Head>
                 <body>

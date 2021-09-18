@@ -6,7 +6,11 @@ import { commonSpring } from '@lib/constants'
 
 import styles from './index.module.scss'
 
-function Header({ makeReverse }: { makeReverse: boolean }) {
+type HeaderProps = {
+    makeReverse: boolean
+}
+
+function Header({ makeReverse }: HeaderProps) {
     const isMobile = useMediaQuery({
         query: '(max-width: 768px)',
     })
@@ -36,7 +40,7 @@ function Header({ makeReverse }: { makeReverse: boolean }) {
                 <animated.div style={vStyles}>V</animated.div>
             </animated.div>
             <animated.h1 className={styles.h1} style={titleStyles}>
-                Countdown to our wedding:
+                Countdown to our wedding
             </animated.h1>
         </>
     )
