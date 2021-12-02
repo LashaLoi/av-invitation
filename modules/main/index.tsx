@@ -8,7 +8,8 @@ import { colors, commonSpring } from '@lib/constants'
 import styles from './index.module.scss'
 
 export default function Home() {
-    const [date] = useTimer()
+    const [date, isExpired] = useTimer()
+
     const colorNumber = Math.floor(date.seconds / 10) * 10
 
     const containerStyles = useSpring({
@@ -27,23 +28,23 @@ export default function Home() {
 
     return (
         <animated.div className={styles.container} style={containerStyles}>
-            <Header makeReverse={makeReverse} />
+            <Header makeReverse={makeReverse} isExpired={isExpired} />
             <animated.ul className={styles.ul} style={dateStyles}>
                 <li className={styles.li}>
-                    <span className={styles.span}>{date.days}</span>
+                    <span className={styles.span}>{date?.days}</span>
                     days
                 </li>
                 <li className={styles.li}>
-                    <span className={styles.span}>{date.hours}</span>
+                    <span className={styles.span}>{date?.hours}</span>
                     hours
                 </li>
                 <li className={styles.li}>
-                    <span className={styles.span}>{date.minutes}</span>
+                    <span className={styles.span}>{date?.minutes}</span>
                     minutes
                 </li>
                 <li className={styles.li}>
                     <animated.span className={styles.span}>
-                        {date.seconds}
+                        {date?.seconds}
                     </animated.span>
                     seconds
                 </li>

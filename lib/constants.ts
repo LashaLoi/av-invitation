@@ -1,9 +1,9 @@
 import { config } from 'react-spring'
 
 export const colors = {
-    50: '#F0E8E3',
+    50: '#EF9794',
     40: '#EEB18F',
-    30: '#C7B977',
+    30: '#FFA6B2',
     20: '#CADFCF',
     10: '#FACED2',
     0: '#B9B2CB',
