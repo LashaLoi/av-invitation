@@ -10,18 +10,12 @@ const getDistance = () => {
 const getTime = () => {
     const distance = getDistance()
 
-    const isExpired = distance < 0
-
-    const days = Math.abs(
-        Math.floor(distance / (1000 * 60 * 60 * 24)) + (isExpired ? 1 : 0)
-    )
+    const days = Math.abs(Math.floor(distance / (1000 * 60 * 60 * 24)) + 1)
     const hours = Math.abs(
-        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) +
-            (isExpired ? 1 : 0)
+        Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1
     )
     const minutes = Math.abs(
-        Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) +
-            (isExpired ? 1 : 0)
+        Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + 1
     )
     const seconds = Math.abs(Math.floor((distance % (1000 * 60)) / 1000))
 
@@ -35,18 +29,12 @@ type ResultValue = {
     seconds: number
 }
 
-export const useTimer = (): [ResultValue, boolean] => {
+export const useTimer = (): ResultValue => {
     const [date, setDate] = useState(getTime)
-    const [isExpired, setIsExpired] = useState(getDistance() < 0)
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             const time = getTime()
-            const distance = getDistance()
-
-            if (!isExpired && distance < 0) {
-                setIsExpired(true)
-            }
 
             setDate(time)
         }, 1000)
@@ -54,5 +42,5 @@ export const useTimer = (): [ResultValue, boolean] => {
         return () => clearInterval(intervalId)
     })
 
-    return [date, isExpired]
+    return date
 }

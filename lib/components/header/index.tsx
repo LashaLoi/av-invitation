@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import React, { memo } from 'react'
 import { animated, useSpring } from 'react-spring'
 import { useMediaQuery } from 'react-responsive'
 
@@ -8,10 +8,9 @@ import styles from './index.module.scss'
 
 type HeaderProps = {
     makeReverse: boolean
-    isExpired: boolean
 }
 
-function Header({ makeReverse, isExpired }: HeaderProps) {
+const Header: React.FC<HeaderProps> = ({ makeReverse }) => {
     const isMobile = useMediaQuery({
         query: '(max-width: 768px)',
     })
@@ -40,15 +39,9 @@ function Header({ makeReverse, isExpired }: HeaderProps) {
                 <div>A</div>
                 <animated.div style={vStyles}>V</animated.div>
             </animated.div>
-            {isExpired ? (
-                <animated.h1 className={styles.h0} style={titleStyles}>
-                    We're married
-                </animated.h1>
-            ) : (
-                <animated.h1 className={styles.h1} style={titleStyles}>
-                    Countdown to our wedding
-                </animated.h1>
-            )}
+            <animated.h1 className={styles.h1} style={titleStyles}>
+                We're married
+            </animated.h1>
         </>
     )
 }
